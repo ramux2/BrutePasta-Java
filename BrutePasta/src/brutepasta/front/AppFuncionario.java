@@ -1,16 +1,11 @@
 package brutepasta.front;
 
-public class AppConta {
-	public AppConta() {
+public class AppFuncionario {
+	public AppFuncionario() {
 		int opc;
 		do {
 			System.out.println("\n\n*** CONTA CORRENTE ***");
-			System.out.println("1 - Criar conta");
-			System.out.println("2 - Depositar");
-			System.out.println("3 - Sacar");
-			System.out.println("4 - Saldo");
-			System.out.println("5 - Listar contas");
-			System.out.println("6 - Excluir conta");
+			System.out.println("1 - Cadastrar produto");
 			System.out.println("7 - Voltar");
 			opc = Console.readInt("Op��o: ");
 			switch (opc) {

@@ -2,7 +2,11 @@ package brutepasta.front;
 
 import java.util.List;
 import brutepasta.entidades.Cliente;
+import brutepasta.entidades.Item;
+import brutepasta.entidades.Pedido;
+import brutepasta.entidades.Produto;
 import brutepasta.negocio.ClienteNegocio;
+import brutepasta.negocio.ItemNegocio;
 import brutepasta.persistencia.ClientePersistencia;
 
 public class AppClientes {
@@ -10,127 +14,135 @@ public class AppClientes {
 		int opc;
 		do {
 			System.out.println("\n\n");
-			System.out.println("*** CLIENTES ***");
-			System.out.println("1 - Novo cliente");
-			System.out.println("2 - Listar clientes");
-			System.out.println("3 - Consultar cliente");
-			System.out.println("4 - Alterar cliente");
-			System.out.println("5 - Excluir cliente");
-			System.out.println("6 - Voltar");
+			System.out.println("====== CLIENTES ======");
+			System.out.println("1 - Cadastrar cliente");
+			System.out.println("2 - Consultar cliente");
+			System.out.println("3 - Alterar cliente");
+			System.out.println("4 - Excluir cliente");
+			System.out.println("5 - Voltar");
 			opc = Console.readInt("Opção: ");
 			switch (opc) {
 			case 1:
-				incluirCliente();
+				cadastrarCliente();
 				break;
 			case 2:
-				listarClientes();
-				break;
-			case 3:
 				consultarCliente();
 				break;
-			case 4:
+			case 3:
 				alterarCliente();
 				break;
-			case 5:
+			case 4:
 				excluirCliente();
 				break;
 			}
-		} while (opc != 6);
+		} while (opc != 5);
 	}
 
-	private static void incluirCliente() {
-		System.out.println("\n\n*** INCLUSÃO DE CLIENTES ***");
+	private static void cadastrarCliente() {
+		System.out.println("\n\n====== CADASTRO DE CLIENTES ======");
 		Cliente objCliente = new Cliente();
 		objCliente.setCpf(Console.readString("\n\nInforme o CPF do cliente: "));
 		if (ClienteNegocio.isCPF(objCliente.getCpf())) {
 			if (ClientePersistencia.procurarPorCPF(objCliente) == null) {
 				objCliente.setNome(Console.readString("Informe o nome do cliente: "));
+				objCliente.setEndereco(Console.readString("Informe o endereço do cliente: "));
+				objCliente.setNumeroTel(Console.readString("Informe o número de telefone: "));
 				ClientePersistencia.incluir(objCliente);
-				System.out.println("\n\nInclusão bem sucedida...");
+				System.out.println("\n\nCadastro realizado!!");
 			} else {
-				System.out.println("\n\nCliente já cadastrado...");
+				System.out.println("\n\nCliente já cadastrado.");
 			}
 		} else {
-			System.out.println("\n\nCPF inválido...");
-		}
-	}
-
-	private static void listarClientes() {
-		System.out.println("\n\n*** LISTAGEM DE CLIENTES ***");
-		Cliente objCliente = new Cliente();
-		objCliente.setNome(Console.readString("Informe uma parte do nome que deseja listar: "));
-		for (Cliente item : ClientePersistencia.getClientes(objCliente)) {
-			System.out.println("ID: " + item.getId());
-			System.out.println("Nome: " + item.getNome());
-			System.out.println("CPF: " + item.getCpf());
-			System.out.println("------------------------------");
+			System.out.println("\n\nCPF inválido.");
 		}
 	}
 
 	private static void consultarCliente() {
-		System.out.println("\n\n*** CONSULTA DE CLIENTES ***");
+		System.out.println("\n\n====== CONSULTA DE CLIENTES ======");
 		Cliente objCliente = new Cliente();
+		Produto objProduto = new Produto();
+		Pedido objPedido = new Pedido();
 		objCliente.setCpf(Console.readString("Informe o CPF do cliente que deseja consultar: "));
 		if (ClienteNegocio.isCPF(objCliente.getCpf())) {
 			objCliente = ClientePersistencia.procurarPorCPF(objCliente);
 			if (objCliente != null) {
-				System.out.println("-----------------------");
+				System.out.println("============================");
 				System.out.println("ID: " + objCliente.getId());
 				System.out.println("Nome: " + objCliente.getNome());
 				System.out.println("CPF: " + objCliente.getCpf());
-				System.out.println("-----------------------");
+				System.out.println("Endereço: " + objCliente.getEndereco());
+				System.out.println("============================");
+				System.out.println("\n\n====== PEDIDOS DO CLIENTE ======");
+				float totalPedido = 0;
+				float subTotalPedido = 0;
+				for (Pedido pedido: objCliente.getPedidos()){
+					System.out.println("============================");
+					System.out.println("Nome do cliente: " + pedido.getCliente().getNome());
+					System.out.println("Número do pedido: " + pedido.getId());
+					System.out.println("Data do pedido: " + pedido.getDataPedido());
+					System.out.println("Endereço de entrega: " + pedido.getCliente().getEndereco());
+					System.out.println("\n====== ITENS DO PEDIDO ======");
+					for (Item itens: objPedido.getItens()) {
+						System.out.println("Nome: " + itens.getProduto().getNome());
+						System.out.println("Preço: " + itens.getProduto().getPreco());
+						System.out.println("Quantidade: " + itens.getQuantidade());
+						subTotalPedido = ItemNegocio.calcularSubTotal(itens, itens.getProduto());
+						totalPedido += subTotalPedido;
+						System.out.println("Subtotal: R$" + subTotalPedido);
+						System.out.println("============================");
+					}
+					System.out.println("Total do pedido: R$" + totalPedido);
+				}
 			} else {
-				System.out.println("\n\nCliente não cadastrado...");
+				System.out.println("\n\nCliente não cadastrado.");
 			}
 		} else {
-			System.out.println("\n\nCPF inválido...");
+			System.out.println("\n\nCPF inválido.");
 		}
 	}
 
 	private static void alterarCliente() {
 		Cliente objCliente = new Cliente();
-		objCliente.setCpf(Console.readString("\n\nInforme o CPF do cliente que deseja consultar: "));
+		objCliente.setCpf(Console.readString("\n\nInforme o CPF do cliente: "));
 		objCliente = ClientePersistencia.procurarPorCPF(objCliente);
 		if (objCliente != null) {
-			System.out.println("-----------------------");
-			System.out.println("ID: " + objCliente.getId());
+			System.out.println("============================");
 			System.out.println("Nome: " + objCliente.getNome());
 			System.out.println("CPF: " + objCliente.getCpf());
-			System.out.println("-----------------------");
-			String resp = Console.readString("\n\nQuer alterar o cliente? ");
+			System.out.println("============================");
+			String resp = Console.readString("\n\nAlterar dados do cliente [S]/[N]: ");
 			if (resp.equals("S")) {
-				objCliente.setNome(Console.readString("\n\nInforme um novo nome para o cliente: "));
+				objCliente.setNome(Console.readString("\n\nInforme um novo nome: "));
 				if (ClientePersistencia.alterar(objCliente) == true) {
-					System.out.println("\n\nAlteração realizada...");
+					System.out.println("\n\nAlteração realizada!!");
 				} else {
-					System.out.println("\n\nA alteração não pôde ser realizada no momento...");
+					System.out.println("\n\nOcorreu um erro ao alterar dados do cliente.");
 				}
 			}
 		} else {
-			System.out.println("\n\nCliente não cadastrado...");
+			System.out.println("\n\nCliente não cadastrado.");
 		}
 	}
 
 	private static void excluirCliente() {
 		Cliente objCliente = new Cliente();
-		objCliente.setCpf(Console.readString("\n\nInforme o CPF do cliente que deseja consultar: "));
+		objCliente.setCpf(Console.readString("\n\nInforme o CPF do cliente: "));
 		objCliente = ClientePersistencia.procurarPorCPF(objCliente);
 		if (objCliente != null) {
-			System.out.println("-----------------------");
-			System.out.println("ID: " + objCliente.getId());
+			System.out.println("============================");
 			System.out.println("Nome: " + objCliente.getNome());
 			System.out.println("CPF: " + objCliente.getCpf());
-			System.out.println("-----------------------");
-			String resp = Console.readString("\n\nQuer excluir o cliente? ");
+			System.out.println("============================");
+			String resp = Console.readString("\n\nExcluir cliente [S]/[N]: ");
 			if (resp.equals("S")) {
 				if (ClientePersistencia.excluir(objCliente) == true) {
-					System.out.println("\n\nO cliente foi excluído....");
+					System.out.println("\n\nCliente excluído com sucesso!");
 				} else {
-					System.out.println("\n\nNão foi possível excluir o cliente no momento...");
+					System.out.println("\n\nOcorreu um erro ao excluir o cliente.");
 				}
 			}
 		} else {
-			System.out.println("\n\nCliente não cadastrado...");
+			System.out.println("\n\nCliente não cadastrado.");
 		}
 	}
 }
