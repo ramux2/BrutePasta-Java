@@ -1,15 +1,18 @@
 package brutepasta.front;
 
 import brutepasta.entidades.Produto;
+import brutepasta.entidades.TipoProduto;
 import brutepasta.persistencia.ProdutoPersistencia;
 
 public class AppCardapio {
     public AppCardapio() {
         int opc;
         Produto objProduto = new Produto();
+        TipoProduto objTipoProduto = new TipoProduto();
 
         do {
             System.out.println("\n\n====== CARDÁPIO ======");
+            for (TipoProduto tipoProduto: objProduto.getTipoProduto())
             System.out.println("1 - Massas");
             System.out.println("2 - Molhos");
             System.out.println("3 - Carnes");
