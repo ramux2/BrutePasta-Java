@@ -13,7 +13,16 @@ public class Produto {
     private String nome;
     private int disponibilidade;
     private float preco;
-    private String tipoProduto;
+    private TipoProduto tipoProduto;
+
+    public TipoProduto getTipoProduto() {
+        return tipoProduto;
+    }
+
+    public void setTipoProduto(TipoProduto tipoProduto) {
+        this.tipoProduto = tipoProduto;
+    }
+
     private String descricao;
 
     public String getDescricao() {
@@ -22,14 +31,6 @@ public class Produto {
 
     public void setDescricao(String descricao) {
         this.descricao = descricao;
-    }
-
-    public String getTipoProduto() {
-        return tipoProduto;
-    }
-
-    public void setTipoProduto(String tipoProduto) {
-        this.tipoProduto = tipoProduto;
     }
 
     public int getId() {
