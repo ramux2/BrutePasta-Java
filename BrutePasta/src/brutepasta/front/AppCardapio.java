@@ -12,7 +12,7 @@ public class AppCardapio {
 
         do {
             System.out.println("\n\n====== CARDÁPIO ======");
-            for (TipoProduto tipoProduto: objProduto.getTipoProduto())
+//            for (TipoProduto tipoProduto: objProduto.getTipoProduto())
             System.out.println("1 - Massas");
             System.out.println("2 - Molhos");
             System.out.println("3 - Carnes");

@@ -1,9 +1,6 @@
 package brutepasta.entidades;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class Produto {
@@ -13,6 +10,8 @@ public class Produto {
     private String nome;
     private int disponibilidade;
     private float preco;
+
+    @OneToOne
     private TipoProduto tipoProduto;
 
     public TipoProduto getTipoProduto() {

@@ -11,10 +11,10 @@ public class AppTipoProduto {
         int opc;
         do {
             System.out.println("\n\n");
-            System.out.println("====== CLIENTES ======");
-            System.out.println("1 - Cadastrar cliente");
-            System.out.println("2 - Consultar cliente");
-            System.out.println("3 - Alterar cliente");
+            System.out.println("====== TIPO DE PRODUTO ======");
+            System.out.println("1 - Cadastrar tipo de produto");
+            System.out.println("2 - Consultar tipo de produto");
+            System.out.println("3 - Alterar client0e");
             System.out.println("4 - Excluir cliente");
             System.out.println("5 - Voltar");
             opc = Console.readInt("Opção: ");
