@@ -47,22 +47,22 @@ public class TipoProdutoPersistencia {
         }
     }
 
-    public static Cliente procurarPorNome(TipoProduto tipoProduto) {
+    public static TipoProduto procurarPorNome(TipoProduto tipoProduto) {
         EntityManager manager = EntityManagerFactory.getInstance();
         Query consulta = manager.createQuery("from TipoProduto where nome = :param");
         consulta.setParameter("param", tipoProduto.getNome());
-        List<Cliente> clientes = consulta.getResultList();
-        if (!clientes.isEmpty()) {
-            return clientes.get(0);
+        List<TipoProduto> tipoProdutos = consulta.getResultList();
+        if (!tipoProdutos.isEmpty()) {
+            return tipoProdutos.get(0);
         }
         return null;
     }
 
-    public static List<Cliente> getClientes(Cliente cliente) {
+    public static List<TipoProduto> getTipoProduto() {
         EntityManager manager = EntityManagerFactory.getInstance();
-        Query consulta = manager.createQuery("from Cliente where nome like :param");
-        consulta.setParameter("param", "%" + cliente.getNome() + "%");
-        List<Cliente> clientes = consulta.getResultList();
-        return clientes;
+        Query consulta = manager.createQuery("select tp from TipoProduto tp");
+        List<TipoProduto> tipoProdutos = consulta.getResultList();
+        return tipoProdutos;
     }
+
 }

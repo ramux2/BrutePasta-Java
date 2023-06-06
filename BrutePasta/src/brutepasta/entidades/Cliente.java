@@ -14,6 +14,7 @@ public class Cliente {
 	private String endereco;
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "cliente", fetch = FetchType.LAZY)
 	private List<Pedido> pedidos;
+	private String numeroTel;
 
 	public String getEndereco() {
 		return endereco;
@@ -30,9 +31,6 @@ public class Cliente {
 	public void setNumeroTel(String numeroTel) {
 		this.numeroTel = numeroTel;
 	}
-
-	private String numeroTel;
-
 
 	public String getCpf() {
 		return cpf;

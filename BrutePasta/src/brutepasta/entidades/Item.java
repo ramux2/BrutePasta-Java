@@ -9,7 +9,7 @@ public class Item {
     private int id;
     @ManyToOne
     private Pedido pedido;
-    @ManyToOne
+    @OneToOne
     private Produto produto;
     @ManyToOne
     private Carrinho carrinho;
