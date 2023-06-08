@@ -11,8 +11,13 @@ public class Produto {
     private int disponibilidade;
     private float preco;
 
-    @OneToOne
+    @ManyToOne
     private TipoProduto tipoProduto;
+
+    private String descricao;
+
+    public Produto() {
+    }
 
     public TipoProduto getTipoProduto() {
         return tipoProduto;
@@ -21,8 +26,6 @@ public class Produto {
     public void setTipoProduto(TipoProduto tipoProduto) {
         this.tipoProduto = tipoProduto;
     }
-
-    private String descricao;
 
     public String getDescricao() {
         return descricao;
@@ -63,4 +66,5 @@ public class Produto {
     public void setPreco(float preco) {
         this.preco = preco;
     }
+
 }
