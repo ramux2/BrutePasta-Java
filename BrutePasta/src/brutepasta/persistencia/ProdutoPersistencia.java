@@ -25,10 +25,10 @@ public class ProdutoPersistencia {
         }
     }
 
-    public static List<Produto> getProdutos(String tipo) {
+    public static List<Produto> getProdutos(TipoProduto tipoProduto) {
         EntityManager manager = EntityManagerFactory.getInstance();
-        Query consulta = manager.createQuery("FROM Produto WHERE tipo = :param");
-        consulta.setParameter("param", tipo);
+        Query consulta = manager.createQuery("FROM Produto WHERE tipoProduto = :param");
+        consulta.setParameter("param", tipoProduto);
         List<Produto> produtos = consulta.getResultList();
         return produtos;
     }

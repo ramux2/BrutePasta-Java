@@ -22,19 +22,6 @@ public class AppFuncionario {
 					new AppTipoProduto();
 					break;
 			}
-		} while (opc != 7);
-	}
-
-	public static void cadastrarTipoProduto() {
-		System.out.println("\n\n====== CADASTRO TIPO DE PRODUTO ======");
-		TipoProduto objTipoProduto = new TipoProduto();
-		objTipoProduto.setNome(Console.readString("\n\nInforme o tipo do produto: "));
-		if (TipoProdutoPersistencia.procurarPorNome(objTipoProduto) == null) {
-			objTipoProduto.setNome(Console.readString("Informe o nome do cliente: "));
-			TipoProdutoPersistencia.incluir(objTipoProduto);
-			System.out.println("\n\nTipo de produto adicionado!!");
-		} else {
-			System.out.println("\n\nCliente já cadastrado.");
-		}
+		} while (opc != 3);
 	}
 }

@@ -9,7 +9,10 @@ public class Entregador {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String nome;
+
     private String placaVeiculo;
+
+    private float taxaEntrega;
 
     @OneToMany
     private List<Pedido> pedidos;
@@ -44,5 +47,13 @@ public class Entregador {
 
     public void setPedidos(List<Pedido> pedidos) {
         this.pedidos = pedidos;
+    }
+
+    public float getTaxaEntrega() {
+        return taxaEntrega;
+    }
+
+    public void setTaxaEntrega(float taxaEntrega) {
+        this.taxaEntrega = taxaEntrega;
     }
 }
