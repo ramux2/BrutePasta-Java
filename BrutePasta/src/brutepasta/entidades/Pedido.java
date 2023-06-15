@@ -65,5 +65,6 @@ public class Pedido {
 
     public void setEntregador(Entregador entregador) {
         this.entregador = entregador;
+        entregador.setPedidos(this);
     }
 }

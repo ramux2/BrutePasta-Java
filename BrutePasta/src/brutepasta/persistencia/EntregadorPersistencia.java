@@ -69,10 +69,9 @@ public class EntregadorPersistencia {
         return null;
     }
 
-    public static List<Entregador> getEntregadores(Entregador entregador) {
+    public static List<Entregador> getEntregadores() {
         EntityManager manager = EntityManagerFactory.getInstance();
-        Query consulta = manager.createQuery("from Entregador where nome like :param");
-        consulta.setParameter("param", "%" + entregador.getNome() + "%");
+        Query consulta = manager.createQuery("select tp From Entregador tp");
         List<Entregador> entregadores = consulta.getResultList();
         return entregadores;
     }

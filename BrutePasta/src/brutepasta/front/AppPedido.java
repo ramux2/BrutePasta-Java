@@ -1,6 +1,8 @@
 package brutepasta.front;
 
 import java.util.Date;
+import java.util.List;
+import java.util.Random;
 import java.text.SimpleDateFormat;
 import java.text.ParseException;
 
@@ -8,7 +10,10 @@ import brutepasta.entidades.*;
 import brutepasta.negocio.ClienteNegocio;
 import brutepasta.persistencia.ClientePersistencia;
 import brutepasta.persistencia.ProdutoPersistencia;
+import brutepasta.persistencia.PedidoPersistencia;
+import brutepasta.persistencia.EntregadorPersistencia;
 import brutepasta.negocio.ItemNegocio;
+
 
 public class AppPedido {
     public AppPedido() {
@@ -47,6 +52,7 @@ public class AppPedido {
         if (ClienteNegocio.isCPF(objCliente.getCpf())) {
             objCliente = ClientePersistencia.procurarPorCPF(objCliente);
             if (objCliente != null) {
+                //Associando o objeto CLIENTE ao objeto PEDIDO
                 objPedido.setCliente(objCliente);
                 boolean dataValida = false;
                 do {
@@ -64,7 +70,6 @@ public class AppPedido {
                     objProduto.setNome(Console.readString("Informe o nome do produto: "));
                     objProduto = ProdutoPersistencia.procurarPorNome(objProduto);
                     if(objProduto != null) {
-                        //Aqui está sendo associado o objeto PRODUTO ao objeto ITEMVENDA
                         System.out.println("============================");
                         System.out.println("Nome: " + objProduto.getNome());
                         System.out.println("Descrição: " + objProduto.getDescricao());
@@ -73,10 +78,11 @@ public class AppPedido {
                         System.out.println("Disponibilidade: " + objProduto.getDisponibilidade());
                         System.out.println("============================");
                         if (objProduto.getDisponibilidade() > 0){
+                            //Aqui está sendo associado o objeto PRODUTO ao objeto ITEM
                             objItem.setProduto(objProduto);
                             objItem.setQuantidade(Console.readInt("Informe a quantidade: "));
                             System.out.println("SubTotal: " + ItemNegocio.calcularSubTotal(objItem, objProduto));
-                            //Aqui está sendo adicionado o objeto ITEMVENDA ao objeto VENDA
+                            //Aqui está sendo adicionado o objeto ITEM ao objeto CARRINHO
                             objCarrinho.getItens().add(objItem);
                         }
                     }
@@ -93,6 +99,29 @@ public class AppPedido {
                     // Adiciona o item à lista de produtos do pedido
                     objPedido.getItens().add(novoItem);
                 }
+                List<Entregador> entregadoresDisponiveis = EntregadorPersistencia.getEntregadores();
+
+                // Verificar se há entregadores disponíveis
+                if (entregadoresDisponiveis.isEmpty()) {
+                    System.out.println("Desculpe, não há entregadores disponíveis no momento.");
+                    return;
+                }
+
+                // Gerar um índice aleatório para selecionar um entregador
+                Random random = new Random();
+                int indiceAleatorio = random.nextInt(entregadoresDisponiveis.size());
+
+                // Obter o entregador selecionado
+                Entregador entregadorSelecionado = entregadoresDisponiveis.get(indiceAleatorio);
+
+                // Associar o entregador ao pedido
+                objPedido.setEntregador(entregadorSelecionado);
+
+                //Acrescenta a taxa de entrega ao entregador
+                entregadorSelecionado.setTaxaEntrega(entregadorSelecionado.getTaxaEntrega() + 15);
+
+
+
                 if(PedidoPersistencia.incluir(objPedido) == true) {
                     System.out.println("\n\nVenda realizada...");
                 }

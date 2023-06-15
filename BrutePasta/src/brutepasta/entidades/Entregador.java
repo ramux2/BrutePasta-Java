@@ -45,8 +45,8 @@ public class Entregador {
         return pedidos;
     }
 
-    public void setPedidos(List<Pedido> pedidos) {
-        this.pedidos = pedidos;
+    public void setPedidos(Pedido pedido) {
+        pedidos.add(pedido);
     }
 
     public float getTaxaEntrega() {
