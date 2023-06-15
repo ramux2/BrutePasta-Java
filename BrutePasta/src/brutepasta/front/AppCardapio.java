@@ -18,7 +18,7 @@ public class AppCardapio {
             System.out.println("\n\n====== CARDÁPIO ======");
             List<TipoProduto> tipoProdutoList = TipoProdutoPersistencia.getTipoProduto();
             for (TipoProduto tipoProduto: tipoProdutoList) {
-                System.out.println(tipoProduto.getId() + " - " + tipoProduto.getNome().toUpperCase());
+                System.out.println(tipoProduto.getNome().toUpperCase());
             }
             opc = Console.readString("Informe o produto: ");
             TipoProduto tipoProdutoSelecionado = null;

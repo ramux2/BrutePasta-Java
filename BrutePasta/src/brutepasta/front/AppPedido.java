@@ -8,6 +8,7 @@ import brutepasta.entidades.*;
 import brutepasta.negocio.ClienteNegocio;
 import brutepasta.persistencia.ClientePersistencia;
 import brutepasta.persistencia.ProdutoPersistencia;
+import brutepasta.negocio.ItemNegocio;
 
 public class AppPedido {
     public AppPedido() {
@@ -32,6 +33,7 @@ public class AppPedido {
 
     public static void realizarPedido() {
         int opc;
+        String resposta;
         Pedido objPedido = new Pedido();
         Cliente objCliente = new Cliente();
         Carrinho objCarrinho = new Carrinho();
@@ -59,8 +61,44 @@ public class AppPedido {
                 } while (dataValida == false);
 
                 do {
-                    opc = 1;
-                } while (opc != 0);
+                    objProduto.setNome(Console.readString("Informe o nome do produto: "));
+                    objProduto = ProdutoPersistencia.procurarPorNome(objProduto);
+                    if(objProduto != null) {
+                        //Aqui está sendo associado o objeto PRODUTO ao objeto ITEMVENDA
+                        System.out.println("============================");
+                        System.out.println("Nome: " + objProduto.getNome());
+                        System.out.println("Descrição: " + objProduto.getDescricao());
+                        System.out.println("Tipo do produto: " + objProduto.getTipoProduto().getNome());
+                        System.out.println("Preço: " + objProduto.getPreco());
+                        System.out.println("Disponibilidade: " + objProduto.getDisponibilidade());
+                        System.out.println("============================");
+                        if (objProduto.getDisponibilidade() > 0){
+                            objItem.setProduto(objProduto);
+                            objItem.setQuantidade(Console.readInt("Informe a quantidade: "));
+                            System.out.println("SubTotal: " + ItemNegocio.calcularSubTotal(objItem, objProduto));
+                            //Aqui está sendo adicionado o objeto ITEMVENDA ao objeto VENDA
+                            objCarrinho.getItens().add(objItem);
+                        }
+                    }
+                    else {
+                        System.out.println("\n\nProduto não cadastrado.");
+                    }
+                    resposta = Console.readString("Adicionar mais itens [S]/[N]: ");
+                }while(resposta.equals("S"));
+                // Percorre os itens do carrinho
+                for (Item item : objCarrinho.getItens()) {
+                    Item novoItem = new Item();
+                    novoItem.setProduto(item.getProduto());
+                    novoItem.setQuantidade(item.getQuantidade());
+                    // Adiciona o item à lista de produtos do pedido
+                    objPedido.getItens().add(novoItem);
+                }
+                if(PedidoPersistencia.incluir(objPedido) == true) {
+                    System.out.println("\n\nVenda realizada...");
+                }
+                else {
+                    System.out.println("\n\nNão foi possível realizar a venda....");
+                }
             }
         }
     }

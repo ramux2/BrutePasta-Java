@@ -11,6 +11,17 @@ public class Carrinho {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "carrinho", fetch = FetchType.LAZY)
     private List<Item> itens;
 
+    public void limparCarrinho() {
+        itens.clear();
+    }
+
+    public void transferirParaPedido(Pedido pedido) {
+        for (Item item : itens) {
+            pedido.adicionarItem(item);
+        }
+        itens.clear();
+    }
+
     public int getId() {
         return id;
     }

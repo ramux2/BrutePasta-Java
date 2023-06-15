@@ -17,7 +17,6 @@ public class Pedido {
     @ManyToOne
     private Entregador entregador;
     private float valorTotal;
-    private String status;
     private Date dataPedido;
 
     public Date getDataPedido() {
@@ -50,14 +49,6 @@ public class Pedido {
 
     public void setValorTotal(float valorTotal) {
         this.valorTotal = valorTotal;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
     }
 
     public Cliente getCliente() {

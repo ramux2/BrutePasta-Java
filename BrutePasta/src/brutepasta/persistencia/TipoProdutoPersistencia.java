@@ -49,7 +49,7 @@ public class TipoProdutoPersistencia {
 
     public static TipoProduto procurarPorNome(TipoProduto tipoProduto) {
         EntityManager manager = EntityManagerFactory.getInstance();
-        Query consulta = manager.createQuery("from TipoProduto where nome like :param");
+        Query consulta = manager.createQuery("from TipoProduto where nome = :param");
         consulta.setParameter("param", tipoProduto.getNome());
         List<TipoProduto> tipoProdutos = consulta.getResultList();
         if (!tipoProdutos.isEmpty()) {

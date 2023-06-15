@@ -58,7 +58,7 @@ public class AppClientes {
 	}
 
 	private static void consultarCliente() {
-		System.out.println("\n\n====== CONSULTA DE CLIENTES ======");
+		System.out.println("\n\n====== CONSULTA DE CLIENTES ======\n");
 		Cliente objCliente = new Cliente();
 		Produto objProduto = new Produto();
 		Pedido objPedido = new Pedido();
