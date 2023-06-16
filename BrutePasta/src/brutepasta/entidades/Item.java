@@ -11,8 +11,7 @@ public class Item {
     private Pedido pedido;
     @OneToOne
     private Produto produto;
-    @ManyToOne
-    private Carrinho carrinho;
+
     private int quantidade;
 
     public int getId() {
@@ -47,11 +46,4 @@ public class Item {
         this.pedido = pedido;
     }
 
-    public Carrinho getCarrinho() {
-        return carrinho;
-    }
-
-    public void setCarrinho(Carrinho carrinho) {
-        this.carrinho = carrinho;
-    }
 }

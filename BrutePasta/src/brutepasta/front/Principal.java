@@ -9,7 +9,7 @@ public class Principal {
 			System.out.println("1 - Clientes");
 			System.out.println("2 - Funcionário");
 			System.out.println("3 - Entregador");
-			System.out.println("4 - Realizar pedido");
+			System.out.println("4 - Pedido");
 			System.out.println("5 - Sair");
 			opc = Console.readInt("Opção: ");
 			switch (opc) {

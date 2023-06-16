@@ -10,11 +10,12 @@ public class PedidoNegocio {
     public static float calcularSubTotal(Item item, Produto produto) {
         return produto.getPreco() * item.getQuantidade();
     }
-    public static float calcularTotal(List<Item> itens, Produto produto) {
+    public static float calcularTotal(List<Item> itens) {
         float total = 0;
         for(Item item: itens) {
-            total += calcularSubTotal(item, produto);
+            total += calcularSubTotal(item, item.getProduto());
         }
+        total += 15;
         return total;
     }
 }

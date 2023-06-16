@@ -1,7 +1,7 @@
 package brutepasta.persistencia;
 
 import brutepasta.entidades.Pedido;
-import brutepasta.entidades.TipoProduto;
+import brutepasta.entidades.Entregador;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
@@ -40,11 +40,21 @@ public class PedidoPersistencia {
             manager.remove(pedido);
             manager.getTransaction().commit();
             return true;
-
         } catch (Exception e) {
             e.printStackTrace();
             return false;
         }
+    }
+
+    public static Pedido procurarPorId(Pedido pedido) {
+        EntityManager manager = EntityManagerFactory.getInstance();
+        Query consulta = manager.createQuery("from Pedido where id = :param");
+        consulta.setParameter("param", pedido.getId());
+        List<Pedido> pedidos = consulta.getResultList();
+        if (!pedidos.isEmpty()) {
+            return pedidos.get(0);
+        }
+        return null;
     }
 
     public static List<Pedido> getPedido() {

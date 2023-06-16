@@ -73,26 +73,22 @@ public class AppEntregador {
                     System.out.println("\n\nEntregador não possui pedidos ainda.");
                 } else {
                     System.out.println("\n\n====== PEDIDOS ENTREGUES ======");
-                    System.out.println(objEntregador.getPedidos());
-                    float totalPedido = 0;
                     float subTotalPedido = 0;
                     for (Pedido pedido : objEntregador.getPedidos()) {
-                        System.out.println("============================");
-                        System.out.println("Nome do cliente: " + pedido.getCliente().getNome());
+                        System.out.println("\n\nNome do cliente: " + pedido.getCliente().getNome());
                         System.out.println("Número do pedido: " + pedido.getId());
                         System.out.println("Data do pedido: " + pedido.getDataPedido());
                         System.out.println("Endereço de entrega: " + pedido.getCliente().getEndereco());
                         System.out.println("\n====== ITENS DO PEDIDO ======");
-                        for (Item itens : objPedido.getItens()) {
+                        for (Item itens : pedido.getItens()) {
                             System.out.println("Nome: " + itens.getProduto().getNome());
                             System.out.println("Preço: " + itens.getProduto().getPreco());
                             System.out.println("Quantidade: " + itens.getQuantidade());
                             subTotalPedido = ItemNegocio.calcularSubTotal(itens, itens.getProduto());
-                            totalPedido += subTotalPedido;
                             System.out.println("Subtotal: R$" + subTotalPedido);
                             System.out.println("============================");
                         }
-                        System.out.println("Total do pedido: R$" + totalPedido);
+                        System.out.println("Total do pedido: R$" + pedido.getValorTotal());
                         System.out.println("Taxa de entrega: R$ 15,00");
                     }
                 }

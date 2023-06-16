@@ -1,5 +1,6 @@
 package brutepasta.entidades;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Date;
 import javax.persistence.*;
@@ -10,8 +11,8 @@ public class Pedido {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "pedido", fetch = FetchType.LAZY)
-    private List<Item> itens;
+    @OneToMany(cascade = CascadeType.ALL)
+    private List<Item> itens = new ArrayList<Item>();
     @ManyToOne
     private Cliente cliente;
     @ManyToOne
@@ -65,6 +66,5 @@ public class Pedido {
 
     public void setEntregador(Entregador entregador) {
         this.entregador = entregador;
-        entregador.setPedidos(this);
     }
 }

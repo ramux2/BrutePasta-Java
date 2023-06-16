@@ -1,6 +1,7 @@
 package brutepasta.entidades;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -14,7 +15,7 @@ public class Entregador {
 
     private float taxaEntrega;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "entregador", fetch = FetchType.LAZY)
     private List<Pedido> pedidos;
 
     public int getId() {
@@ -45,8 +46,8 @@ public class Entregador {
         return pedidos;
     }
 
-    public void setPedidos(Pedido pedido) {
-        pedidos.add(pedido);
+    public void setPedidos(List<Pedido> pedidos) {
+        this.pedidos = pedidos;
     }
 
     public float getTaxaEntrega() {

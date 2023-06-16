@@ -76,6 +76,8 @@ public class AppProduto {
             System.out.println("Preço: " + objProduto.getPreco());
             System.out.println("Disponibilidade: " + objProduto.getDisponibilidade());
             System.out.println("============================");
+        } else {
+            System.out.println("Produto não cadastrado.");
         }
     }
 

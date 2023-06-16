@@ -77,8 +77,6 @@ public class AppClientes {
 					System.out.println("\n\nCliente não possui pedidos ainda.");
 				} else {
 					System.out.println("\n\n====== PEDIDOS DO CLIENTE ======");
-					System.out.println(objCliente.getPedidos());
-					float totalPedido = 0;
 					float subTotalPedido = 0;
 					for (Pedido pedido : objCliente.getPedidos()) {
 						System.out.println("============================");
@@ -87,16 +85,16 @@ public class AppClientes {
 						System.out.println("Data do pedido: " + pedido.getDataPedido());
 						System.out.println("Endereço de entrega: " + pedido.getCliente().getEndereco());
 						System.out.println("\n====== ITENS DO PEDIDO ======");
-						for (Item itens : objPedido.getItens()) {
-							System.out.println("Nome: " + itens.getProduto().getNome());
-							System.out.println("Preço: " + itens.getProduto().getPreco());
-							System.out.println("Quantidade: " + itens.getQuantidade());
-							subTotalPedido = ItemNegocio.calcularSubTotal(itens, itens.getProduto());
-							totalPedido += subTotalPedido;
+						System.out.println(pedido.getItens());
+						for (Item item : pedido.getItens()) {
+							System.out.println("Nome: " + item.getProduto().getNome());
+							System.out.println("Preço: " + item.getProduto().getPreco());
+							System.out.println("Quantidade: " + item.getQuantidade());
+							subTotalPedido = ItemNegocio.calcularSubTotal(item, item.getProduto());
 							System.out.println("Subtotal: R$" + subTotalPedido);
 							System.out.println("============================");
 						}
-						System.out.println("Total do pedido: R$" + totalPedido);
+						System.out.println("Total do pedido: R$" + pedido.getValorTotal());
 					}
 				}
 			} else {
