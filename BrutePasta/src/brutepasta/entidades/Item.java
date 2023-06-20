@@ -7,8 +7,6 @@ public class Item {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @ManyToOne
-    private Pedido pedido;
     @OneToOne
     private Produto produto;
 
@@ -38,12 +36,5 @@ public class Item {
         this.quantidade = quantidade;
     }
 
-    public Pedido getPedido() {
-        return pedido;
-    }
-
-    public void setPedido(Pedido pedido) {
-        this.pedido = pedido;
-    }
 
 }

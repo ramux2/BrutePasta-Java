@@ -85,7 +85,6 @@ public class AppClientes {
 						System.out.println("Data do pedido: " + pedido.getDataPedido());
 						System.out.println("Endereço de entrega: " + pedido.getCliente().getEndereco());
 						System.out.println("\n====== ITENS DO PEDIDO ======");
-						System.out.println(pedido.getItens());
 						for (Item item : pedido.getItens()) {
 							System.out.println("Nome: " + item.getProduto().getNome());
 							System.out.println("Preço: " + item.getProduto().getPreco());

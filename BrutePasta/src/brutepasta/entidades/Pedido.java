@@ -13,9 +13,9 @@ public class Pedido {
     private int id;
     @OneToMany(cascade = CascadeType.ALL)
     private List<Item> itens = new ArrayList<Item>();
-    @ManyToOne
+    @OneToOne
     private Cliente cliente;
-    @ManyToOne
+    @OneToOne
     private Entregador entregador;
     private float valorTotal;
     private Date dataPedido;

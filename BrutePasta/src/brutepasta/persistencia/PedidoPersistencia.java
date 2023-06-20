@@ -1,7 +1,6 @@
 package brutepasta.persistencia;
 
 import brutepasta.entidades.Pedido;
-import brutepasta.entidades.Entregador;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;

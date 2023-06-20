@@ -148,6 +148,7 @@ public class AppPedido {
             float subTotalPedido = 0;
             System.out.println("============================");
             System.out.println("Nome do cliente: " + objPedido.getCliente().getNome());
+            System.out.println("Entregador: " + objPedido.getEntregador().getNome());
             System.out.println("Número do pedido: " + objPedido.getId());
             System.out.println("Data do pedido: " + objPedido.getDataPedido());
             System.out.println("Endereço de entrega: " + objPedido.getCliente().getEndereco());
@@ -163,7 +164,7 @@ public class AppPedido {
             System.out.println("Total do pedido: R$" + objPedido.getValorTotal());
             String resp = Console.readString("\n\nExcluir pedido [S]/[N]: ");
             if (resp.equals("S")) {
-                Cliente cliente = objPedido.getCliente();
+                /*Cliente cliente = objPedido.getCliente();
                 Entregador entregador = objPedido.getEntregador();
                 if (entregador != null) {
                     entregador.getPedidos().remove(objPedido);
@@ -172,7 +173,7 @@ public class AppPedido {
                 if (cliente != null) {
                     cliente.getPedidos().remove(objPedido);
                     objPedido.setCliente(null);
-                }
+                }*/
                 if (PedidoPersistencia.excluir(objPedido)) {
                     System.out.println("\n\nPedido excluído com sucesso!");
                 } else {

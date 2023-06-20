@@ -3,14 +3,9 @@ package brutepasta.persistencia;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
-import brutepasta.entidades.Produto;
 
-import brutepasta.entidades.Cliente;
 import brutepasta.entidades.Produto;
 import brutepasta.entidades.TipoProduto;
-import org.hibernate.internal.build.AllowSysOut;
-
-import java.util.List;
 
 public class ProdutoPersistencia {
     public static boolean incluir(Produto produto) {
